@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#174c38">
+<title>Kagema Farmer Tech</title>
+<style>
+:root{--green:#174c38;--green2:#23694b;--lime:#d8ef9b;--cream:#f7f8f2;--ink:#17251e;--muted:#68766e;--line:#e1e8df;--white:#fff;--orange:#f0a34a;--red:#b83232}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:17px clamp(18px,5vw,70px);background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.5px;color:var(--green);font-size:1.12rem}.brandmark{display:grid;place-items:center;width:39px;height:39px;border-radius:13px;background:var(--green);color:#fff;font-size:21px}
+.top-right{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.9rem}.status-dot{width:8px;height:8px;background:#55a76b;border-radius:50%;display:inline-block}
+main{max-width:1180px;margin:auto;padding:32px clamp(16px,4vw,48px) 60px}
+.hero{background:linear-gradient(120deg,#123f2e,#23694b);color:#fff;border-radius:28px;padding:clamp(25px,5vw,54px);display:grid;grid-template-columns:1.25fr .75fr;gap:24px;overflow:hidden;position:relative}
+.hero:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff20;border-radius:50%;right:-90px;top:-120px;box-shadow:0 0 0 38px #ffffff08,0 0 0 78px #ffffff06}
+.eyebrow{font-size:.76rem;text-transform:uppercase;letter-spacing:1.7px;color:var(--lime);font-weight:800}
+h1{font-size:clamp(2rem,4.7vw,3.7rem);line-height:1.04;letter-spacing:-1.8px;margin:15px 0 17px;max-width:690px}
+.hero p{color:#e0ece4;line-height:1.7;max-width:620px;margin:0 0 25px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.btn{border:0;border-radius:13px;padding:13px 19px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--lime);color:#173b2b}.btn-ghost{background:#ffffff15;border:1px solid #ffffff45;color:white}.btn-green{background:var(--green);color:#fff}.btn-light{background:#edf4ec;color:var(--green)}
+.hero-art{align-self:center;justify-self:center;width:min(100%,270px);aspect-ratio:1;display:grid;place-items:center;position:relative;z-index:1}.art-circle{width:100%;height:100%;border-radius:50%;background:#d9edbd;display:grid;place-items:center;font-size:115px;box-shadow:inset 0 0 0 18px #ffffff35}.art-tag{position:absolute;bottom:9px;right:-12px;background:#fff;color:var(--green);padding:12px 16px;border-radius:14px;font-weight:800;box-shadow:0 10px 25px #102e201c}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 30px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px 20px}.stat strong{display:block;font-size:1.15rem;color:var(--green);margin-bottom:4px}.stat span{font-size:.86rem;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:34px 0 17px}.section-head h2{margin:0;font-size:1.55rem;letter-spacing:-.5px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:.92rem}
+.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr);gap:20px;align-items:start}
+.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:clamp(18px,3vw,28px);box-shadow:0 5px 22px #173e2a05}
+.card h3{margin:0 0 7px;font-size:1.12rem}.sub{color:var(--muted);font-size:.9rem;line-height:1.55;margin:0 0 20px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:.86rem;font-weight:750;color:#35473c}
+input,select,textarea{width:100%;border:1px solid #dce5dc;background:#fbfcfa;border-radius:11px;padding:12px 13px;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:#5b9871;box-shadow:0 0 0 3px #5b987118}textarea{resize:vertical;min-height:112px}
+.photo-box{border:1.5px dashed #b9cbbd;border-radius:15px;padding:18px;text-align:center;background:#fafcf9}.photo-box input{border:0;background:transparent;padding:8px}.preview{max-width:100%;max-height:230px;border-radius:12px;display:none;margin:12px auto 0}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.notice{font-size:.82rem;line-height:1.55;color:var(--muted);background:#f2f6ef;border-radius:12px;padding:12px 14px;margin-top:17px}
+.side-card{position:sticky;top:92px}.feature{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.feature:last-child{border-bottom:0}.feature-icon{flex:0 0 39px;height:39px;border-radius:12px;background:#edf5e8;display:grid;place-items:center;font-size:20px}.feature b{display:block;font-size:.91rem;margin:1px 0 4px}.feature span{display:block;font-size:.83rem;line-height:1.5;color:var(--muted)}
+.result{display:none;margin-top:22px}.result.show{display:block}.result-head{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:13px}.result-head h3{margin:0}.pill{background:#edf5e8;color:var(--green);border-radius:999px;padding:6px 10px;font-size:.77rem;font-weight:800}.match{border:1px solid var(--line);border-radius:14px;padding:15px;margin:11px 0}.match-top{display:flex;justify-content:space-between;gap:10px;font-weight:800}.bar{height:8px;background:#e9eee8;border-radius:99px;overflow:hidden;margin:10px 0}.bar span{display:block;height:100%;background:#73a85f;border-radius:99px}.match p{margin:0;color:var(--muted);font-size:.87rem;line-height:1.5}
+.alert{padding:14px 16px;border-radius:13px;margin:13px 0;line-height:1.55;font-size:.9rem}.alert-warn{background:#fff4df;color:#754b12;border:1px solid #f4dfb8}.alert-danger{background:#fff0ef;color:#8b2929;border:1px solid #f0c7c4}
+footer{margin-top:34px;padding:23px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:.86rem}footer a{color:var(--green);font-weight:750;text-decoration:none}
+.hidden{display:none!important}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{width:180px;grid-row:1}.hero-art .art-circle{font-size:75px}.layout{grid-template-columns:1fr}.side-card{position:static}.stats{grid-template-columns:1fr}.stat{padding:14px 17px}}
+@media(max-width:520px){.top-right .status-text{display:none}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.hero{border-radius:21px}.section-head{align-items:start;flex-direction:column}}
+
+.login-screen{position:fixed;inset:0;z-index:20;background:linear-gradient(135deg,#123f2e,#286d4d);display:grid;place-items:center;padding:20px;overflow:auto}
+.login-card{width:min(100%,470px);background:#fff;border-radius:25px;padding:clamp(24px,5vw,38px);box-shadow:0 25px 80px #071d1260}
+.login-brand{display:flex;align-items:center;gap:10px;color:var(--green);font-weight:850;font-size:1.1rem;margin-bottom:28px}
+.login-card h1{font-size:2rem;letter-spacing:-1px;color:var(--ink);margin:0 0 9px}
+.login-card .login-intro{color:var(--muted);line-height:1.6;margin:0 0 23px}
+.login-card .field{margin-bottom:15px}
+.login-note{font-size:.8rem;color:var(--muted);line-height:1.5;margin-top:17px}
+.login-message{display:none;margin:12px 0;padding:12px;border-radius:11px;background:#fff4df;color:#754b12;font-size:.86rem;line-height:1.5}
+.login-message.show{display:block}
+.login-actions{display:grid;gap:10px}
+.login-actions .btn{width:100%}
+.login-screen .login-card label{display:block}
+@media(max-width:520px){.login-card h1{font-size:1.8rem}}
+
+</style>
+</head>
+<body>
+
+<section class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand"><span class="brandmark">🌱</span><span>Kagema Farmer Tech</span></div>
+    <h1>Welcome back</h1>
+    <p class="login-intro">Sign in with your email and phone number. A verification code can be sent once SMS/email verification is connected.</p>
+    <form id="loginForm">
+      <div class="field"><label for="loginEmail">Email address</label><input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div class="field"><label for="loginPhone">Phone number</label><input id="loginPhone" type="tel" autocomplete="tel" placeholder="07xx xxx xxx" required></div>
+      <div class="field"><label for="verificationCode">Verification code</label><input id="verificationCode" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter code" disabled></div>
+      <div class="login-actions">
+        <button class="btn btn-green" type="button" id="requestCode">Send verification code</button>
+        <button class="btn btn-light" type="submit" id="verifyButton" disabled>Verify and continue</button>
+      </div>
+      <div class="login-message" id="loginMessage" role="status"></div>
+    </form>
+    <p class="login-note">Verification is not active in this standalone HTML yet. To send and verify real codes, connect a secure backend and an email/SMS provider. Do not use a client-side code as account security.</p>
+  </div>
+</section>
+
+<header class="topbar">
+  <div class="brand"><span class="brandmark">🌱</span><span>Kagema Farmer Tech</span></div>
+  <div class="top-right"><span class="status-dot"></span><span class="status-text">Farmer support assistant</span></div>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Smarter livestock care starts here</div>
+      <h1>Better information.<br>Healthier animals.</h1>
+      <p>Record what you observe, keep animal details together, and explore possible causes of illness. Get clear next steps and know when to contact an animal-health professional.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">＋ Start an assessment</button>
+        <a class="btn btn-ghost" href="tel:0704634673">☎ Contact support</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="art-circle">🐄</div><div class="art-tag">Care starts with observation</div></div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><strong>Record</strong><span>Farmer and animal details</span></div>
+    <div class="stat"><strong>Observe</strong><span>Symptoms in your own words</span></div>
+    <div class="stat"><strong>Act safely</strong><span>Guidance and referral reminders</span></div>
+  </div>
+
+  <div class="section-head" id="assessment">
+    <div><h2>Animal health assessment</h2><p>Complete the details below to create a symptom summary.</p></div>
+  </div>
+  <div class="layout">
+    <section class="card">
+      <h3>Farmer and animal details</h3>
+      <p class="sub">Fields marked with * are required. Your photo stays in this browser and is not uploaded.</p>
+      <form id="assessmentForm">
+        <div class="form-grid">
+          <div class="field"><label for="farmer">Farmer name *</label><input id="farmer" required placeholder="Your full name"></div>
+          <div class="field"><label for="phone">Phone number *</label><input id="phone" required type="tel" placeholder="07xx xxx xxx"></div>
+          <div class="field full"><label for="location">Location / village *</label><input id="location" required placeholder="Village, ward, county"></div>
+          <div class="field"><label for="species">Animal species *</label><select id="species" required><option value="">Choose species</option><option>Cattle</option><option>Goat</option><option>Sheep</option><option>Pig</option><option>Chicken</option><option>Rabbit</option></select></div>
+          <div class="field"><label for="breed">Breed (if known)</label><input id="breed" placeholder="e.g. Friesian, local breed"></div>
+          <div class="field"><label for="gender">Gender</label><select id="gender"><option value="">Choose</option><option>Female</option><option>Male</option><option>Unknown</option></select></div>
+          <div class="field"><label for="age">Age</label><input id="age" placeholder="e.g. 2 years, 6 months"></div>
+          <div class="field full"><label for="duration">How long has the animal been ill?</label><input id="duration" placeholder="e.g. since yesterday, 3 days"></div>
+          <div class="field full"><label for="symptoms">What have you observed? *</label><textarea id="symptoms" required placeholder="Describe signs in your own words: appetite, behaviour, coughing, diarrhoea, swelling, milk changes, etc."></textarea></div>
+          <div class="field full"><label for="photo">Animal photo (optional)</label><div class="photo-box"><div>📷 Add a photo from camera or gallery</div><input id="photo" type="file" accept="image/*" capture="environment"><img id="preview" class="preview" alt="Animal photo preview"></div></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-green" type="submit">Review observations →</button><button class="btn btn-light" type="reset">Clear form</button></div>
+        <div class="notice">This tool provides educational symptom matching only. It does not diagnose disease or replace examination by a qualified veterinary professional. Do not give medicines based only on this result.</div>
+      </form>
+      <section class="result" id="result" aria-live="polite">
+        <div class="result-head"><h3>Observation summary</h3><span class="pill">Educational only</span></div>
+        <div id="summary"></div><div id="matches"></div>
+        <div class="alert alert-warn"><b>Next step:</b> Contact an animal-health professional for an examination, especially if signs are worsening or you are unsure what to do.</div>
+        <div class="alert alert-danger"><b>Urgent:</b> Seek prompt veterinary help if the animal cannot stand, has difficulty breathing, has severe bleeding, seizures, severe bloating, or is rapidly getting worse.</div>
+        <button class="btn btn-light" onclick="window.print()">Print / Save summary</button>
+      </section>
+    </section>
+
+    <aside class="card side-card">
+      <h3>How this helps</h3><p class="sub">A simple workflow for collecting useful information before contacting an animal-health professional.</p>
+      <div class="feature"><div class="feature-icon">📝</div><div><b>Describe the signs</b><span>Use everyday words. Include when the problem began and any changes.</span></div></div>
+      <div class="feature"><div class="feature-icon">🔎</div><div><b>Explore possible matches</b><span>Sample conditions are shown only when symptom keywords overlap.</span></div></div>
+      <div class="feature"><div class="feature-icon">🤝</div><div><b>Get professional help</b><span>Share the summary with a qualified animal-health professional.</span></div></div>
+      <div class="notice"><b>About Kagema Farmer Tech</b><br>Created by an Animal Health student at Egerton University. This learning tool is not a veterinary clinic and does not provide a confirmed diagnosis.</div>
+      <p style="margin:18px 0 5px;font-weight:800">Customer support</p>
+      <p style="margin:0;color:var(--muted);line-height:1.7">☎ <a href="tel:0704634673" style="color:var(--green)">0704634673</a><br>✉ <a href="mailto:franciskagema613@gmail.com" style="color:var(--green);overflow-wrap:anywhere">franciskagema613@gmail.com</a></p>
+    </aside>
+  </div>
+  <footer><span>© <span id="year"></span> Kagema Farmer Tech</span><span>Built for responsible animal-health support</span></footer>
+</main>
+<script>
+const diseaseExamples=[
+ {name:"Possible digestive upset",keys:["diarrhoea","diarrhea","loose stool","watery stool","bloat","bloated","abdominal pain","not eating"],note:"Digestive signs can have many causes, including feed changes, parasites, infection, or other illness. An examination is needed."},
+ {name:"Possible respiratory illness",keys:["cough","coughing","difficulty breathing","breathing fast","nasal discharge","runny nose","sneeze","pneumonia"],note:"Respiratory signs may be associated with infection or other problems. Breathing difficulty needs urgent professional attention."},
+ {name:"Possible parasitic problem",keys:["worms","worm","pale gums","weight loss","poor growth","rough coat","diarrhoea","diarrhea"],note:"Parasites are one possible cause, but similar signs occur with other conditions. Testing and professional advice help guide treatment."},
+ {name:"Possible udder or milk-related problem",keys:["udder","mastitis","swollen udder","milk change","blood in milk","clots in milk","painful udder"],note:"Udder swelling, pain, or abnormal milk should be assessed promptly by an animal-health professional."},
+ {name:"Possible skin or external parasite problem",keys:["itching","scratching","hair loss","wounds","ticks","lice","skin lesions","rash"],note:"Skin signs can result from parasites, infection, injury, or allergy. Avoid applying chemicals or medicines without advice."},
+ {name:"Possible general illness",keys:["fever","weak","weakness","not eating","loss of appetite","depressed","lethargic","off feed"],note:"General illness signs are non-specific. Record temperature if you know how to take it safely, and arrange an assessment."}
+];
+document.getElementById("year").textContent=new Date().getFullYear();
+const photo=document.getElementById("photo"),preview=document.getElementById("preview");
+photo.addEventListener("change",()=>{const f=photo.files&&photo.files[0];if(!f){preview.style.display="none";return}preview.src=URL.createObjectURL(f);preview.style.display="block"});
+document.getElementById("assessmentForm").addEventListener("reset",()=>{setTimeout(()=>{preview.style.display="none";document.getElementById("result").classList.remove("show")},0)});
+document.getElementById("assessmentForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const farmer=document.getElementById("farmer").value.trim(),location=document.getElementById("location").value.trim(),species=document.getElementById("species").value;
+ const symptoms=document.getElementById("symptoms").value.trim(),lower=symptoms.toLowerCase();
+ const hits=diseaseExamples.map(d=>({...d,count:d.keys.filter(k=>lower.includes(k)).length})).filter(d=>d.count>0).sort((a,b)=>b.count-a.count).slice(0,3);
+ document.getElementById("summary").innerHTML=`<div class="match"><b>${escapeHTML(farmer)}</b> · ${escapeHTML(species)}<p>${escapeHTML(location)}${document.getElementById("duration").value.trim()?" · Ill for "+escapeHTML(document.getElementById("duration").value.trim()):""}</p><p style="margin-top:8px"><b>Observed:</b> ${escapeHTML(symptoms)}</p></div>`;
+ const matches=document.getElementById("matches");
+ if(!hits.length){matches.innerHTML='<div class="match"><b>No sample match found</b><p>The words entered did not match the sample symptom list. This does not mean the animal is healthy. Please consult an animal-health professional.</p></div>'}
+ else{matches.innerHTML='<p class="sub">Sample symptom overlap (not disease probability or a diagnosis):</p>'+hits.map(d=>{const pct=Math.min(95,Math.round(d.count/Math.max(2,d.keys.length)*100)+25);return `<div class="match"><div class="match-top"><span>${escapeHTML(d.name)}</span><span>${pct}% overlap</span></div><div class="bar"><span style="width:${pct}%"></span></div><p>${escapeHTML(d.note)}</p></div>`}).join("")}
+ document.getElementById("result").classList.add("show");document.getElementById("result").scrollIntoView({behavior:"smooth",block:"start"});
+});
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+const loginMessage=document.getElementById("loginMessage");
+document.getElementById("requestCode").addEventListener("click",()=>{
+ const email=document.getElementById("loginEmail"),phone=document.getElementById("loginPhone");
+ if(!email.reportValidity()||!phone.reportValidity())return;
+ loginMessage.textContent="The login form is ready, but code delivery is not connected in this HTML-only version. Add a backend with an email/SMS verification service to send a real code.";
+ loginMessage.classList.add("show");
+ document.getElementById("verificationCode").disabled=false;
+ document.getElementById("verifyButton").disabled=false;
+ document.getElementById("verificationCode").focus();
+});
+document.getElementById("loginForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ loginMessage.textContent="A real verification service is required to confirm this code. No account has been authenticated. You can close this notice and use the app below in preview mode.";
+ loginMessage.classList.add("show");
+});
+
+</script>
+</body>
+</html>
